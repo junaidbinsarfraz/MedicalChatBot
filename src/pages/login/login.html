@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="showLogin">Login</ion-title>
+    <ion-title *ngIf="!showLogin">Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item no-lines style="text-align: center">
+    <img src="/assets/images/logo.png" style="width: 10%;">
+  </ion-item>
+
+  <div *ngIf="showLogin">
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+  </div>
+
+  <div *ngIf="!showLogin">
+    
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+    <!--<ion-item>
+      <ion-label floating>Confirm Password</ion-label>
+      <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
+    </ion-item>-->
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+  </div>
+
+  <ion-item no-lines>
+    <button ion-button color="primary" full (click)="doLogin()" *ngIf="showLogin">Login</button>
+    <!--<a href="{{ forgetPasswordUrl }}" *ngIf="showLogin" class="right" style="float: right;" target="_blank">Forget Password</a>-->
+    <!--<span *ngIf="showLogin" style="float: right;" >&nbsp;&nbsp;|&nbsp;&nbsp;</span>-->
+    <a href="javascript:void(0)" (click)="doRegister()" *ngIf="showLogin" style="float: right;">Register now</a>
+    <button ion-button color="primary" full (click)="doRegister()" *ngIf="!showLogin">Register</button>
+    <a href="javascript:void(0)" (click)="doLogin()" *ngIf="!showLogin" style="float: right;">Back to login</a>
+  </ion-item>
+</ion-content>
