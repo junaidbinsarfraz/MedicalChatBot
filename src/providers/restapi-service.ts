@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -24,7 +24,7 @@ export class RestapiService {
     }
 
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/users')
+      this.http.get(this.apiUrl + '/users')
         .map(res => res.json())
         .subscribe(data => {
           this.data = data;
@@ -35,10 +35,55 @@ export class RestapiService {
 
   login(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'/Login', JSON.stringify(data))
-        .subscribe(res => {
+
+      var headers = new Headers();
+      // headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json; charset=utf-8');
+      // headers.append('dataType', 'json' );
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.post(this.apiUrl + '/Login', JSON.stringify(data), options)
+        .subscribe((res: any) => {
           console.log(res);
-          resolve(res);
+          resolve(JSON.parse(res._body));
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  signup(data) {
+    return new Promise((resolve, reject) => {
+
+      var headers = new Headers();
+      // headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json; charset=utf-8');
+      // headers.append('dataType', 'json' );
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.post(this.apiUrl + '/Signup', JSON.stringify(data), options)
+        .subscribe((res: any) => {
+          console.log(res);
+          resolve(JSON.parse(res._body));
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  sendText(data) {
+    return new Promise((resolve, reject) => {
+
+      var headers = new Headers();
+      // headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json; charset=utf-8');
+      // headers.append('dataType', 'json' );
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.post(this.apiUrl + '/SendTextMessage', JSON.stringify(data), options)
+        .subscribe((res: any) => {
+          console.log(res);
+          resolve(JSON.parse(res._body));
         }, (err) => {
           reject(err);
         });

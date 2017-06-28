@@ -10,7 +10,13 @@
 <ion-content padding>
 
   <ion-item no-lines style="text-align: center">
-    <img src="/assets/images/logo.png" style="width: 10%;">
+    <img src="assets/images/logo.png" style="width: 10%;">
+  </ion-item>
+
+  <ion-item no-lines>
+    <div style="color: red;">
+      {{ error }}
+    </div>
   </ion-item>
 
   <div *ngIf="showLogin">

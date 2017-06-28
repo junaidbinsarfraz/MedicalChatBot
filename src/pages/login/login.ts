@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { Http } from '@angular/http';
 
+import { HomePage } from '../home/home';
+
 import { RestapiService } from '../../providers/restapi-service';
 
 @Component({
@@ -10,6 +12,7 @@ import { RestapiService } from '../../providers/restapi-service';
 })
 export class LoginPage {
 
+  error: string = '';
   showLogin: boolean = true;
   email: string = '';
   password: string = '';
@@ -23,7 +26,6 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    
   }
 
   /*
@@ -31,27 +33,52 @@ export class LoginPage {
   otherwise show it
   */
   doLogin() {
-    var link = 'https://physicianstat.com/WS/Login';
-    var data = JSON.stringify({ username: this.username, password: this.password });
+    this.error = '';
 
-    // this.http.post(link, data)
-    //   .subscribe(data => {
-    //     console.log(data);
-    //   }, error => {
-    //     console.log("Oooops!");
-    // });
+    if (this.showLogin) {
+      var data = { username: this.username, password: this.password };
 
-    this.restapiService.login({ username: this.username, password: this.password }).then((result) => {
-      console.log(result);
-    }, (err) => {
-      console.log(err);
-    });
-
+      this.restapiService.login(data).then((result: any) => {
+        console.log(result);
+        // TODO: Check status
+        if(result.status == 200) {
+          this.navCtrl.setRoot(HomePage);
+        } else {
+          this.error = result.message;
+        }
+      }, (err) => {
+        console.log(err);
+        this.error = 'Unable to login';
+      });
+    }
     this.showLogin = true;
   }
 
   doRegister() {
+    this.error = '';
+
+    if(!this.showLogin) {
+      // Do Register
+      var data = {
+        Username: this.username,
+        Password: this.password,
+        Email: this.email,
+        Name: this.name,
+        Age: 0
+      }
+
+      this.restapiService.signup(data).then((result: any) => {
+        console.log(result);
+        if(result.status == 200) {
+          this.navCtrl.setRoot(HomePage);
+        } else {
+          this.error = result.message;
+        }
+      }, (err) => {
+        console.log(err);
+        this.error = 'Unable to register';
+      });
+    }
     this.showLogin = false;
   }
-
 }
