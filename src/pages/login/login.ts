@@ -6,6 +6,9 @@ import { HomePage } from '../home/home';
 
 import { RestapiService } from '../../providers/restapi-service';
 
+import ToastUtil from '../../utils/toast.util';
+import LoaderUtil from '../../utils/loader.util';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -36,19 +39,36 @@ export class LoginPage {
     this.error = '';
 
     if (this.showLogin) {
+
+      if (this.username === '' || this.password === '') {
+        let alert = this.alertCtrl.create({
+          title: 'Login Error',
+          subTitle: 'All fields are rquired',
+          buttons: ['OK']
+        });
+        alert.present();
+        return;
+      }
+
+      LoaderUtil.showLoader("Please wait ...");
+
       var data = { username: this.username, password: this.password };
 
       this.restapiService.login(data).then((result: any) => {
         console.log(result);
-        // TODO: Check status
+        
+        LoaderUtil.dismissLoader();
+
         if(result.status == 200) {
           this.navCtrl.setRoot(HomePage);
+          ToastUtil.showToast("Successfully Loggedin");
         } else {
           this.error = result.message;
         }
       }, (err) => {
         console.log(err);
-        this.error = 'Unable to login';
+        LoaderUtil.dismissLoader();
+        this.error = 'Unable to process request at the moment.';
       });
     }
     this.showLogin = true;
@@ -58,6 +78,18 @@ export class LoginPage {
     this.error = '';
 
     if(!this.showLogin) {
+
+      if (this.username === '' || this.password === '' || this.email === '' || this.name === '') {
+        let alert = this.alertCtrl.create({
+          title: 'Register Error',
+          subTitle: 'All fields are rquired',
+          buttons: ['OK']
+        });
+        alert.present();
+        return;
+      }
+
+      LoaderUtil.showLoader("Please wait ...");
       // Do Register
       var data = {
         Username: this.username,
@@ -68,15 +100,18 @@ export class LoginPage {
       }
 
       this.restapiService.signup(data).then((result: any) => {
+        LoaderUtil.dismissLoader();
         console.log(result);
         if(result.status == 200) {
           this.navCtrl.setRoot(HomePage);
+          ToastUtil.showToast("Successfully Registered");
         } else {
           this.error = result.message;
         }
       }, (err) => {
+        LoaderUtil.dismissLoader();
         console.log(err);
-        this.error = 'Unable to register';
+        this.error = 'Unable to process request at the moment.';
       });
     }
     this.showLogin = false;
