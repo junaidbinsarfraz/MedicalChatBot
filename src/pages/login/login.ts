@@ -24,7 +24,6 @@ export class LoginPage {
   confirmPassword: string = '';
   contactNumber: string = '';
   username: string = '';
-  agree: boolean = false;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: Http, public restapiService: RestapiService) {
   }
@@ -80,7 +79,7 @@ export class LoginPage {
 
     if(!this.showLogin) {
 
-      if (this.username === '' || this.password === '' || this.email === '' || this.name === '' || !this.agree) {
+      if (this.username === '' || this.password === '' || this.email === '' || this.name === '') {
         let alert = this.alertCtrl.create({
           title: 'Register Error',
           subTitle: 'All fields are rquired',
