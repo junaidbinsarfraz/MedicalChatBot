@@ -1,7 +1,7 @@
 {
   "name": "physician-stat",
-  "author": "Junaid",
-  "homepage": "http://ionicframework.com/",
+  "author": "Cesar Avila",
+  "homepage": "https://physicianstat.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -47,5 +47,5 @@
       "locator": "ios"
     }
   ],
-  "description": "IonicRestCall: An Ionic project"
+  "description": "Physician Stat"
 }
