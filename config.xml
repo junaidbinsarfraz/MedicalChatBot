@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.ionicrestcall781501" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.physicianStat.medicalchatbot" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Physician Stat</name>
   <description>Physician Stat operates a platform to provide you with health information. By setting up an account with us or using and accessing the service, you agree to the Terms of Service listed below. If you do not agree with Terms of Service, please do not browse or otherwise access or use the service. Your privacy is important to us; we do not share or sell your data to anyone.</description>
   <author email="coavila@u.washington.edu">Cesar Avila</author>
